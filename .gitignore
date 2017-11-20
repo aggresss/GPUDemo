@@ -1,4 +1,8 @@
 22801
 inception
+data
+.ipynb_checkpoints
+*.npy
+*.h5
 *.tgz
 
