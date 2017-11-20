@@ -1,0 +1,25 @@
+name: car-behavioral-cloning
+
+channels: 
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/menpo/
+dependencies:
+    - python==3.5.2
+    - numpy
+    - matplotlib
+    - jupyter
+    - opencv3
+    - pillow
+    - scikit-learn
+    - scikit-image
+    - scipy
+    - h5py
+    - eventlet
+    - flask-socketio
+    - seaborn
+    - pandas
+    - imageio
+    - pip:
+        - moviepy
+        - tensorflow-gpu==1.1
+        - keras==1.2
