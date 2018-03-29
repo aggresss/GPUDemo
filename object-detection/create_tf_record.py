@@ -19,8 +19,7 @@ Convert raw aggresss defined dataset to TFRecord for object_detection.
 
 Example usage:
     python object_detection/dataset_tools/create_tf_record.py \
-        --data_dir=/home/user/xxxx \
-        --output_path=/home/user/yyyy.record
+        --data_dir=/home/user/xxxx
 """
 
 from __future__ import absolute_import
@@ -31,6 +30,7 @@ import hashlib
 import io
 import logging
 import os
+import random
 
 from lxml import etree
 import PIL.Image
@@ -42,7 +42,6 @@ from object_detection.utils import label_map_util
 flags = tf.app.flags
 flags.DEFINE_string('data_path', '',
                     'Root directory to aggresss defined dataset.')
-flags.DEFINE_string('output_path', '', 'Path to output TFRecord')
 
 FLAGS = flags.FLAGS
 
@@ -208,15 +207,21 @@ def main(_):
     if is_dataset is True:
         print(species)
 
-        writer = tf.python_io.TFRecordWriter(FLAGS.output_path)
+        writer_train = tf.python_io.TFRecordWriter('train.record')
+        writer_val = tf.python_io.TFRecordWriter('val.record')
+
         label_map_dict = label_map_util.get_label_map_dict(label_map_path)
 
         for specie in species:
             logging.info('Reading from %s dataset.', specie)
             examples_list = species[specie]
+
+            random.seed(42)
+            random.shuffle(examples_list)
+            # Set 70% data to train, 30% data to validation
+            num_train = int(0.7 * len(examples_list))
+
             for idx, example in enumerate(examples_list):
-                if idx % 30 == 0:
-                    logging.info('On image %d of %d', idx, len(examples_list))
 
                 img_path = os.path.join(data_path, specie,
                                         'images', example + '.jpg')
@@ -230,9 +235,14 @@ def main(_):
                     dataset_util.recursive_parse_xml_to_dict(xml)['annotation']
 
                 tf_example = dict_to_tf_example(data, img_path, label_map_dict)
-                writer.write(tf_example.SerializeToString())
 
-        writer.close()
+                if idx < num_train:
+                    writer_train.write(tf_example.SerializeToString())
+                else:
+                    writer_val.write(tf_example.SerializeToString())
+
+        writer_train.close()
+        writer_val.close()
 
 
 if __name__ == '__main__':
