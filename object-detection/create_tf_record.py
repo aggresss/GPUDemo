@@ -128,11 +128,11 @@ def dict_to_tf_example(data,
     with tf.gfile.GFile(image_path, 'rb') as fid:
         encoded_jpg = fid.read()
     encoded_jpg_io = io.BytesIO(encoded_jpg)
-    image = PIL.Image.open(encoded_jpg_io)    
+    image = PIL.Image.open(encoded_jpg_io)
     if image.format != 'JPEG':
         raise ValueError('Image format not JPEG')
     key = hashlib.sha256(encoded_jpg).hexdigest()
-    
+
     real_width = image.size[0]
     real_height = image.size[1]
     width = int(data['size']['width'])
@@ -209,8 +209,10 @@ def main(_):
     if is_dataset is True:
         print(species)
 
-        writer_train = tf.python_io.TFRecordWriter('train.record')
-        writer_val = tf.python_io.TFRecordWriter('val.record')
+        train_rec_path = os.path.join(data_path, 'train.record')
+        val_rec_path = os.path.join(data_path, 'val.record')
+        writer_train = tf.python_io.TFRecordWriter(train_rec_path)
+        writer_val = tf.python_io.TFRecordWriter(val_rec_path)
 
         label_map_dict = label_map_util.get_label_map_dict(label_map_path)
 
