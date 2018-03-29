@@ -236,7 +236,7 @@ def main(_):
 
                 tf_example = dict_to_tf_example(data, img_path, label_map_dict)
 
-                if idx < num_train:
+                if idx <= num_train:
                     writer_train.write(tf_example.SerializeToString())
                 else:
                     writer_val.write(tf_example.SerializeToString())
