@@ -128,11 +128,13 @@ def dict_to_tf_example(data,
     with tf.gfile.GFile(image_path, 'rb') as fid:
         encoded_jpg = fid.read()
     encoded_jpg_io = io.BytesIO(encoded_jpg)
-    image = PIL.Image.open(encoded_jpg_io)
+    image = PIL.Image.open(encoded_jpg_io)    
     if image.format != 'JPEG':
         raise ValueError('Image format not JPEG')
     key = hashlib.sha256(encoded_jpg).hexdigest()
-
+    
+    real_width = image.size[0]
+    real_height = image.size[1]
     width = int(data['size']['width'])
     height = int(data['size']['height'])
 
@@ -165,9 +167,9 @@ def dict_to_tf_example(data,
         features=tf.train.Features(
             feature={
                 'image/height':
-                dataset_util.int64_feature(height),
+                dataset_util.int64_feature(real_height),
                 'image/width':
-                dataset_util.int64_feature(width),
+                dataset_util.int64_feature(real_width),
                 'image/filename':
                 dataset_util.bytes_feature(data['filename'].encode('utf8')),
                 'image/source_id':
