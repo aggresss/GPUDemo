@@ -10,3 +10,4 @@
 #### 第八期 使用 Keras 训练神经网络 http://blog.csdn.net/aggresss/article/details/78588135 
 #### 第九期 使用 Keras 在游戏中实现自动驾驶 http://blog.csdn.net/aggresss/article/details/78598105 
 #### 第十期 使用 Keras 和 Flask 构建一个在线API http://blog.csdn.net/aggresss/article/details/78599829
+#### 第十一期 使用 Tensorflow 实现物体检测 https://blog.csdn.net/aggresss/article/details/78654218 
