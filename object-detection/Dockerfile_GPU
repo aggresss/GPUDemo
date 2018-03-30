@@ -2,8 +2,8 @@
 # Dockerfile for tensorflow object dection API
 #
 
-# Use nvidia/cuda image as parent image
-FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
+# Use tensorflow image as parent image
+FROM tensorflow/tensorflow:1.6.0-gpu
 
 LABEL AUTHOR aggresss
 ENV DEBIAN_FRONTEND noninteractive
@@ -53,14 +53,14 @@ RUN echo "# Jupyter config file" > /root/.jupyter/jupyter_config.py && \
 RUN apt-get -y install apt-utils python python-dev python-pip \
     lib32z1 libglib2.0-dev libsm6 libxrender1 \
     libxext6 libice6 libxt6 libfontconfig1 libcups2 \
-    protobuf-compiler git
+    protobuf-compiler git \
+    && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install necessary python-library
 RUN pip install --upgrade pip
-RUN pip install numpy scipy matplotlib pillow opencv-python ipython==5.5.0 keras h5py \
-    Cython lxml
-RUN pip install jupyter jupyterlab
-RUN pip install tensorflow-gpu
+RUN pip  --no-cache-dir install opencv-python Cython lxml
 
 # Clone the repository
 RUN git clone https://github.com/aggresss/GPUDemo.git /GPUDemo
