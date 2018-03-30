@@ -11,3 +11,10 @@ python object_detection/train.py \
     --pipeline_config_path="ssd_inception_v2_coco.config" \
     --train_dir="/root/volume/train"
 
+python object_detection/eval.py \
+    --logtostderr \
+    --pipeline_config_path="ssd_inception_v2_coco.config" \
+    --checkpoint_dir="/root/volume/train" \
+    --eval_dir="/root/volume/valid"
+
+tensorboard --logdir="/root/volume/train"

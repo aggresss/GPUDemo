@@ -53,7 +53,7 @@ RUN echo "# Jupyter config file" > /root/.jupyter/jupyter_config.py && \
 RUN apt-get -y install apt-utils python python-dev python-pip \
     lib32z1 libglib2.0-dev libsm6 libxrender1 \
     libxext6 libice6 libxt6 libfontconfig1 libcups2 \
-    protobuf-compiler git \
+    protobuf-compiler python-tk git \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -68,10 +68,17 @@ WORKDIR /GPUDemo/object-detection/
 RUN protoc object_detection/protos/*.proto --python_out=.
 ENV PYTHONPATH /usr/bin/python:/GPUDemo/object-detection:/GPUDemo/object-detection/slim
 
+WORKDIR /
+RUN git clone https://github.com/cocodataset/cocoapi.git
+WORKDIR /cocoapi/PythonAPI
+RUN make
+RUN cp -r pycocotools /GPUDemo/object-detection/
+
 # Make startup run file
 RUN echo '#!/bin/sh' > /run.sh && \
     echo "nohup jupyter notebook" >> /run.sh
 RUN chmod +x /run.sh
+WORKDIR /GPUDemo/object-detection/
 CMD /run.sh
 
 
