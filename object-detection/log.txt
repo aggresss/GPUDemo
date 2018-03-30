@@ -18,3 +18,5 @@ python object_detection/eval.py \
     --eval_dir="/root/volume/valid"
 
 tensorboard --logdir="/root/volume/train"
+
+tensorboard --logdir="/root/volume/valid"
