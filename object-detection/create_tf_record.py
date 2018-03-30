@@ -207,8 +207,7 @@ def main(_):
     label_map_path = os.path.join(data_path, 'label_map.pbtxt')
     is_dataset, species = check_dataset(data_path)
     if is_dataset is True:
-        print(species)
-
+        # print(species)
         train_rec_path = os.path.join(data_path, 'train.record')
         val_rec_path = os.path.join(data_path, 'val.record')
         writer_train = tf.python_io.TFRecordWriter(train_rec_path)

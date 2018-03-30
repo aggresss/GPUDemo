@@ -1,0 +1,13 @@
+# opration log
+
+python image_resize.py -p "/root/volume/data" -w 480
+
+rm -rf /root/volume/data/*.record
+
+python ./create_tf_record.py --data_path="/root/volume/data"
+
+python object_detection/train.py \
+    --logtostderr \
+    --pipeline_config_path="ssd_inception_v2_coco.config" \
+    --train_dir="/root/volume/train"
+
