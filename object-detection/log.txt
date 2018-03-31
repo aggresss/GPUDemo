@@ -1,5 +1,7 @@
 # opration log
 
+python object_detection/builders/model_builder_test.py
+
 python image_resize.py -p "/root/volume/data" -w 480
 
 rm -rf /root/volume/data/*.record
