@@ -41,7 +41,7 @@ RUN echo "[global]" > /root/.pip/pip.conf && \
 RUN mkdir -p /root/.jupyter
 RUN echo "# Jupyter config file" > /root/.jupyter/jupyter_config.py && \
     echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_config.py && \
-    echo "c.NotebookApp.notebook_dir = u'/root/volume'" >> /root/.jupyter/jupyter_config.py && \
+    echo "c.NotebookApp.notebook_dir = u'/GPUDemo/object-detection/'" >> /root/.jupyter/jupyter_config.py && \
     echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_config.py && \
     echo "c.NotebookApp.allow_root = True">> /root/.jupyter/jupyter_config.py && \
     echo "c.NotebookApp.port = 8888">> /root/.jupyter/jupyter_config.py && \
@@ -53,7 +53,7 @@ RUN echo "# Jupyter config file" > /root/.jupyter/jupyter_config.py && \
 RUN apt-get -y install apt-utils python python-dev python-pip \
     lib32z1 libglib2.0-dev libsm6 libxrender1 \
     libxext6 libice6 libxt6 libfontconfig1 libcups2 \
-    protobuf-compiler python-tk git \
+    protobuf-compiler python-tk git vim \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
