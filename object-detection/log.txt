@@ -28,3 +28,9 @@ python object_detection/export_inference_graph.py \
     --pipeline_config_path="ssd_inception_v2_coco.config" \
     --trained_checkpoint_prefix="/root/volume/train/model.ckpt-14113" \
     --output_directory="/root/volume/output/"
+
+python object_detection/inference.py \
+    --frozen_graph="/root/volume/output/frozen_inference_graph.pb" \
+    --label_map="/root/volume/data/label_map.pbtxt" \
+    --input_dir "/root/volume/images/input" \
+    --output_dir "/root/volume/images/output"
