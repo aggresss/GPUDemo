@@ -60,7 +60,7 @@ RUN apt-get -y install apt-utils python python-dev python-pip \
 
 # Install necessary python-library
 RUN pip install --upgrade pip
-RUN pip  --no-cache-dir install opencv-python Cython lxml
+RUN pip  --no-cache-dir install opencv-python Cython lxml flask
 
 # Clone the repository
 RUN git clone https://github.com/aggresss/GPUDemo.git /GPUDemo
