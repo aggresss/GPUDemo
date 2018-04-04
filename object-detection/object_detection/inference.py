@@ -145,6 +145,7 @@ def main(_):
         # Actual detection.
         output_dict = run_inference_for_single_image(
             image_np, detection_graph)
+        print(output_dict)
         # Visualization of the results of a detection.
         vis_util.visualize_boxes_and_labels_on_image_array(
             image_np,
@@ -155,7 +156,8 @@ def main(_):
             instance_masks=output_dict.get('detection_masks'),
             use_normalized_coordinates=True,
             line_thickness=8)
-        image_np.save(result_path)
+        im = Image.fromarray(image_np)
+        im.save(result_path)
         count += 1
         print('Images Processed:', count, end='\r')
 
