@@ -118,8 +118,8 @@ def return_encode(pic_label):
 # Initialize flask application and the model
 app = Flask(__name__)
 
-PATH_TO_CKPT = ''
-PATH_TO_LABELS = ''
+PATH_TO_CKPT = '/root/volume/output/frozen_inference_graph.pb'
+PATH_TO_LABELS = '/root/volume/data/label_map.pbtxt'
 NUM_CLASSES = 2
 
 # Load a (frozen) Tensorflow model into memory
