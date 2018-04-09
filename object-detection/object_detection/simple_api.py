@@ -5,10 +5,12 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
+import os
 import json
 import numpy as np
 import tensorflow as tf
 
+from PIL import Image
 from utils import label_map_util
 from utils import ops as utils_ops
 from flask import Flask, request
@@ -100,15 +102,12 @@ def decode_prediction(output_dict, category_index):
 
 
 def return_encode(pic_label):
+    result_trans = {'name': u'未识别'}
 
-    if pic_label == 'fish_tofu':
+    if pic_label == 'fish_toufu':
         result_trans = {'name': u'鱼豆腐'}
-
     elif pic_label == 'roast_sausage':
         result_trans = {'name': u'烤肠'}
-
-    elif pic_label == '':
-        result_trans = {'name': u'未识别'}
 
     result_json = json.dumps(
         result_trans, encoding="UTF-8", ensure_ascii=False)
@@ -143,10 +142,10 @@ def predict():
     if request.method == 'POST':
         # Aquire the upload file to be predict
         image = request.files['files']
-        # basepath = os.path.dirname(__file__)
-        # upload_path = os.path.join(basepath, 'demo.jpg')
-        # image.save(upload_path)
-        # image = Image.open(upload_path)
+        basepath = os.path.dirname(__file__)
+        upload_path = os.path.join(basepath, 'demo.jpg')
+        image.save(upload_path)
+        image = Image.open(upload_path)
         image_np = load_image_into_numpy_array(image)
 
         # Actual object detection.
