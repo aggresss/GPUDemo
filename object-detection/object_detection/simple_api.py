@@ -104,10 +104,10 @@ def decode_prediction(output_dict, category_index):
 def return_encode(pic_label):
     result_trans = {'name': u'未识别'}
 
-    if pic_label == 'fish_toufu':
-        result_trans = {'name': u'鱼豆腐'}
-    elif pic_label == 'roast_sausage':
-        result_trans = {'name': u'烤肠'}
+    if pic_label == 'class_01':
+        result_trans = {'name': u'class_01'}
+    elif pic_label == 'class_02':
+        result_trans = {'name': u'class_02'}
 
     result_json = json.dumps(
         result_trans, encoding="UTF-8", ensure_ascii=False)
